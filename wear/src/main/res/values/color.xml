@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="appPrimary">#FE0C63</color>
-    <color name="appOnPrimary">#0437B2</color>
-    <color name="appContrast">#0437B2</color>
-    <color name="appPrimaryVariant">#00E6E6</color>
+    <color name="appPrimary">#03C4E2</color>
+    <color name="appOnPrimary">#069E66</color>
+    <color name="appContrast">#FD7B5E</color>
+    <color name="appPrimaryVariant">#03C4E2</color>
 </resources>
