@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.G1WearProject">
         <activity
+            android:name=".DestinationActivity"
+            android:exported="false" />
+        <activity
             android:name=".OriginActivity"
             android:exported="false" />
         <activity

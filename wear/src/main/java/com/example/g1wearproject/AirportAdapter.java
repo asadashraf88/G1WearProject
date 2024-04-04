@@ -52,9 +52,9 @@ public class AirportAdapter extends RecyclerView.Adapter<AirportAdapter.AirportV
         }
     }
 
-    //public boolean isSelected(int position) {
-    //    return position == selectedItem;
-    //}
+    public boolean isSelected(int position) {
+        return position == selectedItem;
+    }
 
     static class AirportViewHolder extends RecyclerView.ViewHolder {
 
