@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:elevation="4dp"
+    android:padding="4dp"
+    android:layout_margin="8dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:background="@drawable/item_list_background"
+    android:gravity="center_vertical"
+    >
+
+    <TextView
+        android:id="@+id/user_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="8sp"
+        android:textColor="@android:color/white"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:textStyle="normal"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="1dp"
+        tools:ignore="SmallSp" />
+
+    <TextView
+        android:id="@+id/airport_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:layout_gravity="center_horizontal"
+        android:elevation="8dp"
+        android:shadowColor="#80000000"
+        android:shadowDx="4"
+        android:shadowDy="4"
+        android:shadowRadius="2"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:textStyle="bold"
+        />
+</LinearLayout>

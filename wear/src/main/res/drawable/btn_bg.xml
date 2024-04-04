@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <!-- Button OnClick State -->
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <corners android:radius="8dp"/>
+                    <padding
+                        android:left="8dp"
+                        android:top="8dp"
+                        android:right="8dp"
+                        android:bottom="8dp"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+    <item>
+        <!-- Button Default/ Released State -->
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <corners android:radius="8dp"/>
+                    <padding
+                        android:left="8dp"
+                        android:top="8dp"
+                        android:right="8dp"
+                        android:bottom="8dp"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>
