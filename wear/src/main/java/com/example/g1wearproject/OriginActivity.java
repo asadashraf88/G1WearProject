@@ -83,32 +83,28 @@ public class OriginActivity extends AppCompatActivity {
         });
 
         // Step3: Swipe Logic to close Origin Selection and intent to Destination Activity
-        onSelectedItemSwipe();
-    }
-
-    private void onSelectedItemSwipe() {
-
-        // Step 1: Attach ItemTouchHelper for Swipe Callback
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDestCallback(airportAdapter));
         itemTouchHelper.attachToRecyclerView(binding.originRecyclerView);
-
     }
 
-    // SwipeToDestCallback inner class
+    // Implementing Call Back on Selected Item Swipe
     private class SwipeToDestCallback extends ItemTouchHelper.SimpleCallback {
 
         private AirportAdapter adapter;
 
+        // Constructor
         public SwipeToDestCallback(AirportAdapter adapter) {
             super(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
             this.adapter = adapter;
         }
 
+        // onMove default function Not Used as per swipe logic
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
             return false;
         }
 
+        // onSwiped Intent to Destination Activity and Pass Origin Destination Code
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             int position = viewHolder.getAdapterPosition();
@@ -121,6 +117,8 @@ public class OriginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         }
+
+        // Allowing swipe only for selected item in recyler view
 
         @Override
         public int getSwipeDirs(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
