@@ -21,7 +21,6 @@ public class OriginActivity extends AppCompatActivity {
     private ActivityOriginBinding binding;
     private LinearLayoutManager layoutManager;
     private AirportAdapter airportAdapter;
-
     private List<Airport> airportList;
 
     @Override
@@ -88,10 +87,8 @@ public class OriginActivity extends AppCompatActivity {
     }
 
     // Implementing Call Back on Selected Item Swipe
-    private class SwipeToDestCallback extends ItemTouchHelper.SimpleCallback {
-
+    class SwipeToDestCallback extends ItemTouchHelper.SimpleCallback {
         private AirportAdapter adapter;
-
         // Constructor
         public SwipeToDestCallback(AirportAdapter adapter) {
             super(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);

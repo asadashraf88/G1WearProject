@@ -48,10 +48,11 @@ public class AirportAdapter extends RecyclerView.Adapter<AirportAdapter.AirportV
     public void setSelectedItem(int position) {
         if (position != selectedItem) {
             selectedItem = position;
-            notifyDataSetChanged();
+            notifyDataSetChanged(); // Manage Swipeable Item upon item selection
         }
     }
 
+    // Return Selected Item Position for Swipe Logic
     public boolean isSelected(int position) {
         return position == selectedItem;
     }
