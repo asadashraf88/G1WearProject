@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppDatePicker" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/appOnPrimary</item>
+        <item name="android:textColorPrimary">@color/appPrimary</item>
+        <item name="android:textColorSecondary">@color/appShadow</item>
+        <item name="android:colorControlActivated">@color/appContrast</item>
+    </style>
+</resources>

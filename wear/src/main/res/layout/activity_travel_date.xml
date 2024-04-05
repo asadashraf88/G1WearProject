@@ -1,9 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.wear.widget.BoxInsetLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TravelDateActivity">
+    tools:context=".TravelDateActivity"
+    android:background="@drawable/paulbg"
+    >
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="6dp">
+
+                <TextView
+                    android:id="@+id/originTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ORIGIN TO DESTINATION"
+                    android:gravity="center_horizontal"
+                    android:background="@color/appPrimary"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginTop="4dp"
+                    />
+
+                <DatePicker
+                    android:id="@+id/departureDate"
+                    android:datePickerMode="spinner"
+                    android:spinnersShown="true"
+                    android:calendarViewShown="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:foregroundGravity="center_horizontal"
+                    style="@style/AppDatePicker"
+                    android:background="@color/appShadow"
+                    />
+
+                <TextView
+                    android:id="@+id/destTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="DESTINATION TO ORIGIN"
+                    android:gravity="center_horizontal"
+                    android:background="@color/appOnPrimary"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginTop="4dp"
+                    />
+
+                <DatePicker
+                    android:id="@+id/returnDate"
+                    android:datePickerMode="spinner"
+                    android:spinnersShown="true"
+                    android:calendarViewShown="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:foregroundGravity="center_horizontal"
+                    style="@style/AppDatePicker"
+                    android:background="@color/appShadow"
+                    />
+            </LinearLayout>
+        </ScrollView>
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="@string/btn_submit"
+            android:textSize="12sp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/btn_bg"
+            android:padding="1dp"
+            android:layout_margin="1dp"
+            android:elevation="4dp"
+            android:stateListAnimator="@animator/btn_animator"
+            android:layout_gravity="center|bottom">
+        </Button>
+    </FrameLayout>
+</androidx.wear.widget.BoxInsetLayout>

@@ -30,7 +30,7 @@ public class DestinationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_origin);
+        //setContentView(R.layout.activity_destination);
 
         // Instantiating View using View Binding
         binding = ActivityDestinationBinding.inflate(getLayoutInflater());
