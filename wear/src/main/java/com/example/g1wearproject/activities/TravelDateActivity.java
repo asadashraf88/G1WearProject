@@ -29,6 +29,10 @@ public class TravelDateActivity extends AppCompatActivity  {
     private List<Price> recordedPrices;
     private SharedPreferences sharedPreferences;
 
+    float calcPrice = 0.0f;
+    String originId;
+    String destinationId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +56,8 @@ public class TravelDateActivity extends AppCompatActivity  {
     private void retrieveOriginAndDestination() {
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("origin_id") && intent.hasExtra("destination_id")) {
-            String originId = intent.getStringExtra("origin_id");
-            String destinationId = intent.getStringExtra("destination_id");
+            originId = intent.getStringExtra("origin_id");
+            destinationId = intent.getStringExtra("destination_id");
 
             binding.originTextView.setText(originId + " to " + destinationId);
             binding.destTextView.setText(destinationId + " to " + originId);
@@ -80,13 +84,14 @@ public class TravelDateActivity extends AppCompatActivity  {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private void init(){
-        binding.priceView.setVisibility(View.GONE);
+        binding.priceViewContainer.setVisibility(View.GONE);
         // Attaching On Click Listener to Submit Button
         binding.buttonSubmit.setOnClickListener(v -> {
 
             if(binding.buttonSubmit.getText()!="RESET") {
-                binding.priceView.setVisibility(View.VISIBLE);
+                binding.priceViewContainer.setVisibility(View.VISIBLE);
 
                 // get departure and return dates from the date picker
                 Date departureDate = new Date(binding.editTextDepartureDate.getYear() - 1900, binding.editTextDepartureDate.getMonth(), binding.editTextDepartureDate.getDayOfMonth());
@@ -103,7 +108,7 @@ public class TravelDateActivity extends AppCompatActivity  {
                 }
                 float corePrice = fare.getPrice();
 
-                float calcPrice = corePrice + (float) (Math.random() * 100)-50;
+                calcPrice = corePrice + (float) (Math.random() * 100)-50;
                 calcPrice = Math.round(calcPrice * 100.0f) / 100.0f;
                 // simulate a random variation in the price
                 price.setPrice(calcPrice);
@@ -119,12 +124,26 @@ public class TravelDateActivity extends AppCompatActivity  {
                 // Save the recorded sessions to SharedPreferences
                 Helper.saveRecordedPrices(sharedPreferences, recordedPrices);
 
-                binding.priceView.setText("Best Price: $" + String.valueOf(calcPrice));
+                binding.priceView.setText("Best Price: $" + calcPrice);
                 binding.buttonSubmit.setText("RESET");
             } else {
                 // Navigate to main activity
                 Intent intent = new Intent(TravelDateActivity.this, MainActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        binding.whatsapp.setOnClickListener(v -> {
+            Intent whatsappIntent = new Intent();
+            whatsappIntent.setAction(Intent.ACTION_SEND);
+            whatsappIntent.putExtra(Intent.EXTRA_TEXT, "Best Return Ticket Price: $" + String.valueOf(calcPrice) + "Between:" + originId + " and " + destinationId);
+            whatsappIntent.setType("text/plain");
+            whatsappIntent.setPackage("com.whatsapp");
+
+            try {
+                startActivity(whatsappIntent);
+            } catch (android.content.ActivityNotFoundException ex) {
+                Toast.makeText(this, "WhatsApp is not installed.", Toast.LENGTH_SHORT).show();
             }
         });
     }

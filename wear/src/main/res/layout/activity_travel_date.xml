@@ -93,19 +93,39 @@
             android:layout_gravity="center|bottom">
         </Button>
 
-        <TextView
-            android:id="@+id/priceView"
+        <LinearLayout
+            android:id="@+id/priceViewContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="@android:color/white"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:textStyle="normal"
-            android:layout_gravity="center"
-            android:layout_margin="1dp"
-            android:padding="8dp"
-            tools:ignore="SmallSp"
-            android:background="@drawable/item_selected_background"
-            />
+            android:orientation="horizontal"
+            android:padding="6dp"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/priceView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@android:color/white"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:textStyle="normal"
+                android:layout_gravity="start"
+                android:layout_margin="1dp"
+                android:padding="8dp"
+                tools:ignore="SmallSp"
+                android:background="@drawable/item_selected_background"
+                />
+
+            <ImageButton
+                android:id="@+id/whatsapp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="end"
+                android:scaleType="fitCenter"
+                android:background="@drawable/whatsapp">
+            </ImageButton>
+        </LinearLayout>
+
+
     </FrameLayout>
 </androidx.wear.widget.BoxInsetLayout>
