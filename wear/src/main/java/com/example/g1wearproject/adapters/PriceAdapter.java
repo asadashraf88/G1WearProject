@@ -40,7 +40,9 @@ public class PriceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         if (priceList == null || priceList.isEmpty()) {
             return 0;
         }
-        return priceList.size();
+        else {
+            return priceList.size();
+        }
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -51,12 +53,11 @@ public class PriceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         }
 
         public void bindView(Price price) {
-            rowBinding.textOrigin.setText(price.getOrigin());
-            rowBinding.textDestination.setText(price.getDestination());
-            rowBinding.textDepartureDate.setText(price.getDepartureDate().toString());
-            rowBinding.textReturnDate.setText(price.getReturnDate().toString());
-            rowBinding.textPrice.setText(String.valueOf(price.getPrice()));
-
+                rowBinding.textOrigin.setText(price.getOrigin());
+                rowBinding.textDestination.setText(price.getDestination());
+                rowBinding.textDepartureDate.setText(price.getDepartureDate().toString());
+                rowBinding.textReturnDate.setText(price.getReturnDate().toString());
+                rowBinding.textPrice.setText(String.valueOf(price.getPrice()));
         }
     }
 }
