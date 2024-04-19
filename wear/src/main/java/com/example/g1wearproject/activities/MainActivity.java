@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
         priceList = Helper.loadRecordedPrices(getSharedPreferences(Helper.PRICES_DB, MODE_PRIVATE));
 
-        Log.i("PriceAdapter", "init: " + priceList.size());
         // If the list is null or empty, create a new list
         if (priceList == null) {
             priceList = new ArrayList<>();

@@ -24,7 +24,7 @@ import java.lang.reflect.Type;
 public class Helper {
     // Key for the tasks in SharedPreferences
     private static final String PRICES_KEY = "prices";
-    public static final String PRICES_DB = "PriceDb03";
+    public static final String PRICES_DB = "PriceDb01";
 
     // Method to load recorded workout sessions from SharedPreferences
     public static List<Price> loadRecordedPrices(SharedPreferences sharedPreferences) {
