@@ -23,13 +23,17 @@
 
                 <TextView
                     android:id="@+id/originTextView"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ORIGIN TO DESTINATION"
-                    android:gravity="center_horizontal"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/white"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:textStyle="normal"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="1dp"
+                    android:padding="2dp"
+                    tools:ignore="SmallSp"
                     android:background="@color/appPrimary"
-                    android:layout_marginBottom="2dp"
-                    android:layout_marginTop="4dp"
                     />
 
                 <DatePicker
@@ -47,13 +51,17 @@
 
                 <TextView
                     android:id="@+id/destTextView"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="DESTINATION TO ORIGIN"
-                    android:gravity="center_horizontal"
-                    android:background="@color/appOnPrimary"
-                    android:layout_marginBottom="2dp"
-                    android:layout_marginTop="4dp"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/white"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:textStyle="normal"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="1dp"
+                    android:padding="2dp"
+                    tools:ignore="SmallSp"
+                    android:background="@color/appPrimary"
                     />
 
                 <DatePicker
@@ -79,7 +87,7 @@
             android:textColor="#FFFFFF"
             android:background="@drawable/btn_bg"
             android:padding="1dp"
-            android:layout_margin="1dp"
+            android:layout_margin="12dp"
             android:elevation="4dp"
             android:stateListAnimator="@animator/btn_animator"
             android:layout_gravity="center|bottom">
@@ -87,12 +95,17 @@
 
         <TextView
             android:id="@+id/priceView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PRICE"
-            android:gravity="center_horizontal"
-            android:background="@drawable/item_origin_background"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textStyle="normal"
             android:layout_gravity="center"
+            android:layout_margin="1dp"
+            android:padding="8dp"
+            tools:ignore="SmallSp"
+            android:background="@drawable/item_selected_background"
             />
     </FrameLayout>
 </androidx.wear.widget.BoxInsetLayout>

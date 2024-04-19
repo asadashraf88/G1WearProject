@@ -3,6 +3,7 @@ package com.example.g1wearproject.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -47,11 +48,15 @@ public class TravelDateActivity extends AppCompatActivity  {
         init();
     }
 
+    @SuppressLint("SetTextI18n")
     private void retrieveOriginAndDestination() {
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("origin_id") && intent.hasExtra("destination_id")) {
             String originId = intent.getStringExtra("origin_id");
             String destinationId = intent.getStringExtra("destination_id");
+
+            binding.originTextView.setText(originId + " to " + destinationId);
+            binding.destTextView.setText(destinationId + " to " + originId);
 
             Toast.makeText(this, originId + " " + destinationId, Toast.LENGTH_SHORT).show();
 
@@ -114,7 +119,7 @@ public class TravelDateActivity extends AppCompatActivity  {
                 // Save the recorded sessions to SharedPreferences
                 Helper.saveRecordedPrices(sharedPreferences, recordedPrices);
 
-                binding.priceView.setText(String.valueOf(calcPrice));
+                binding.priceView.setText("Best Price: $" + String.valueOf(calcPrice));
                 binding.buttonSubmit.setText("RESET");
             } else {
                 // Navigate to main activity

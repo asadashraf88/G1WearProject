@@ -2,6 +2,7 @@ package com.example.g1wearproject.adapters;
 
 import static android.app.PendingIntent.getActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -55,6 +56,7 @@ public class PriceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             this.rowBinding = binding;
         }
 
+        @SuppressLint("SetTextI18n")
         public void bindView(Price price) {
             Context context = rowBinding.getRoot().getContext();
             // get airport name from the object and set it to the text view
@@ -64,12 +66,14 @@ public class PriceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 Log.e("PriceAdapter", "Airport not found");
                 return;
             }
-            rowBinding.textOrigin.setText(orginAirport.getIataCode() + "");
-            rowBinding.textDestination.setText(destinationAirport.getIataCode() + "");
-            rowBinding.textPrice.setText(price.getPrice() + "");
+            rowBinding.textOriginAndDest.setText(orginAirport.getIataCode() + " - " + destinationAirport.getIataCode());
+
+            float dispPrice = Math.round(price.getPrice() * 100.0f) / 100.0f;
+
+            rowBinding.textPrice.setText("Best Price: $" + String.valueOf(dispPrice));
             // get just day and month from the date
-            rowBinding.textDepartureDate.setText(Helper.getFormattedDate(price.getDepartureDate()));
-            rowBinding.textReturnDate.setText(Helper.getFormattedDate(price.getReturnDate()));
+            rowBinding.textDepartureDate.setText("Departure: " + Helper.getFormattedDate(price.getDepartureDate()));
+            rowBinding.textReturnDate.setText("Return: " + Helper.getFormattedDate(price.getReturnDate()));
         }
     }
 }

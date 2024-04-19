@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Base.Theme.G1WearProject" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/appPrimary</item>
+        <item name="colorPrimary">@color/appPrimaryVariant</item>
         <item name="colorPrimaryVariant">@color/appPrimaryVariant</item>
         <item name="colorOnPrimary">@color/appOnPrimary</item>
     </style>

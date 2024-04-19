@@ -8,16 +8,16 @@
     android:padding="4dp"
     android:layout_margin="8dp"
     android:foreground="?android:attr/selectableItemBackground"
-    android:background="@drawable/item_list_background"
     android:gravity="center_vertical"
+    android:background="@drawable/item_list_background"
     >
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="horizontal">
+        android:orientation="vertical">
         <TextView
-            android:id="@+id/textOrigin"
+            android:id="@+id/textOriginAndDest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
@@ -26,18 +26,8 @@
             android:textStyle="normal"
             android:layout_gravity="center_horizontal"
             android:layout_margin="1dp"
-            tools:ignore="SmallSp" />
-        <TextView
-            android:id="@+id/textDestination"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="@android:color/white"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:textStyle="normal"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="1dp"
-            tools:ignore="SmallSp" />
+            tools:ignore="SmallSp"
+            />
         <TextView
             android:id="@+id/textPrice"
             android:layout_width="wrap_content"
@@ -48,7 +38,9 @@
             android:textStyle="normal"
             android:layout_gravity="center_horizontal"
             android:layout_margin="1dp"
-            tools:ignore="SmallSp" />
+            android:padding="4dp"
+            tools:ignore="SmallSp"
+            android:background="@drawable/item_selected_background"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -66,7 +58,8 @@
             android:textStyle="normal"
             android:layout_gravity="center_horizontal"
             android:layout_margin="1dp"
-            tools:ignore="SmallSp" />
+            tools:ignore="SmallSp"
+            />
         <TextView
             android:id="@+id/textReturnDate"
             android:layout_width="wrap_content"
@@ -77,7 +70,8 @@
             android:textStyle="normal"
             android:layout_gravity="center_horizontal"
             android:layout_margin="1dp"
-            tools:ignore="SmallSp" />
+            tools:ignore="SmallSp"
+            />
     </LinearLayout>
 
 </LinearLayout>
