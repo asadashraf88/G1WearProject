@@ -8,8 +8,8 @@ public class Price {
     private final int destination;
 
 
-    private final Date departureDate;
-    private final Date returnDate;
+    private Date departureDate;
+    private Date returnDate;
 
     private final double price;
 
@@ -42,6 +42,14 @@ public class Price {
 
     public Date getDepartureDate() {
         return departureDate;
+    }
+
+    public void setDepartureDate(Date departureDate) {
+        this.departureDate = departureDate;
+    }
+
+    public void setReturnDate(Date returnDate) {
+        this.returnDate = returnDate;
     }
 
     public Date getReturnDate() {

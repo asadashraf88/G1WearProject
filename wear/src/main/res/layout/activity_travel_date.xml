@@ -33,7 +33,7 @@
                     />
 
                 <DatePicker
-                    android:id="@+id/departureDate"
+                    android:id="@+id/editTextDepartureDate"
                     android:datePickerMode="spinner"
                     android:spinnersShown="true"
                     android:calendarViewShown="false"
@@ -57,7 +57,7 @@
                     />
 
                 <DatePicker
-                    android:id="@+id/returnDate"
+                    android:id="@+id/editTextReturnDate"
                     android:datePickerMode="spinner"
                     android:spinnersShown="true"
                     android:calendarViewShown="false"
@@ -71,7 +71,7 @@
             </LinearLayout>
         </ScrollView>
         <Button
-            android:id="@+id/btn_submit"
+            android:id="@+id/buttonSubmit"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:text="@string/btn_submit"

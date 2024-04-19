@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "iataCode": "LAX",
+    "name": "Los Angeles International Airport"
+  },
+  {
+    "id": 2,
+    "iataCode": "JFK",
+    "name": "John F. Kennedy International Airport"
+  },
+  {
+    "id": 3,
+    "iataCode": "ORD",
+    "name": "O'Hare International Airport"
+  },
+  {
+    "id": 4,
+    "iataCode": "DFW",
+    "name": "Dallas/Fort Worth International Airport"
+  },
+  {
+    "id": 5,
+    "iataCode": "DEN",
+    "name": "Denver International Airport"
+  },
+  {
+    "id": 6,
+    "iataCode": "SFO",
+    "name": "San Francisco International Airport"
+  },
+  {
+    "id": 7,
+    "iataCode": "LAS",
+    "name": "McCarran International Airport"
+  },
+  {
+    "id": 8,
+    "iataCode": "SEA",
+    "name": "Seattle-Tacoma International Airport"
+  },
+  {
+    "id": 9,
+    "iataCode": "ATL",
+    "name": "Hartsfield-Jackson Atlanta International Airport"
+  },
+  {
+    "id": 10,
+    "iataCode": "MIA",
+    "name": "Miami International Airport"
+  }
+]

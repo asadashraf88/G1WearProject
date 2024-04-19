@@ -1,5 +1,7 @@
 package com.example.g1wearproject.adapters;
 
+import static android.app.PendingIntent.getActivity;
+
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,7 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.g1wearproject.databinding.PriceItemBinding;
+import com.example.g1wearproject.models.Airport;
 import com.example.g1wearproject.models.Price;
+import com.example.g1wearproject.utils.Helper;
 
 import java.util.List;
 
@@ -52,11 +56,16 @@ public class PriceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         }
 
         public void bindView(Price price) {
-            Log.i("PriceAdapter", "bindView: " + price.getId());
-            rowBinding.textOrigin.setText(price.getOrigin() + "");
-            rowBinding.textDestination.setText(price.getDestination() + "");
-            rowBinding.textDepartureDate.setText(price.getDepartureDate().toString());
-            rowBinding.textReturnDate.setText(price.getReturnDate().toString());
+            Context context = rowBinding.getRoot().getContext();
+            // get airport name from the object and set it to the text view
+            Airport orginAirport = Helper.getAirportById(context,price.getOrigin());
+            Airport destinationAirport = Helper.getAirportById(context,price.getDestination());
+            if (orginAirport == null || destinationAirport == null) {
+                Log.e("PriceAdapter", "Airport not found");
+                return;
+            }
+            rowBinding.textOrigin.setText(orginAirport.getIataCode() + "");
+            rowBinding.textDestination.setText(destinationAirport.getIataCode() + "");
             rowBinding.textPrice.setText(price.getPrice() + "");
         }
     }

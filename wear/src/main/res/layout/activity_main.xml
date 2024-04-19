@@ -10,7 +10,7 @@
     app:layout_boxedEdges="all"
     android:layout_gravity="center"
     android:padding="4dp"
-    android:background="@drawable/paulbg"
+
     android:gravity="center"
     app:flow_horizontalAlign="center"
     tools:ignore="MissingClass">

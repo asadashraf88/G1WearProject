@@ -15,9 +15,10 @@ import com.example.g1wearproject.models.Price;
 import com.example.g1wearproject.utils.Helper;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class TravelDateActivity extends AppCompatActivity implements View.OnClickListener {
+public class TravelDateActivity extends AppCompatActivity  {
 
     private @NonNull ActivityTravelDateBinding binding;
 
@@ -50,43 +51,39 @@ public class TravelDateActivity extends AppCompatActivity implements View.OnClic
             int originId = intent.getIntExtra("origin_id", -1);
             int destinationId = intent.getIntExtra("destination_id", -1);
             price = new Price(Price.nextId, originId, destinationId);
-            Price.nextId++;
-
-            recordedPrices = Helper.loadRecordedPrices(sharedPreferences);
-            // Check if recordedSessions is null, initialize with an empty ArrayList if so
-            if (recordedPrices == null) {
-                recordedPrices = new ArrayList<>();
-            }
-
-            // Add the new task to the list of recorded sessions
-            recordedPrices.add(price);
-            // Save the recorded sessions to SharedPreferences
-            Helper.saveRecordedPrices(sharedPreferences, recordedPrices);
-
-
         } else {
             Toast.makeText(this, "Origin and Destination not found", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void init(){
-
         // Hiding Price View
         binding.priceView.setVisibility(View.GONE);
-
         // Attaching On Click Listener to Submit Button
-        binding.btnSubmit.setOnClickListener(this);
-        
+        binding.buttonSubmit.setOnClickListener(v -> {
+
+            // get departure and return dates from the date picker
+            Date departureDate = new Date(binding.editTextDepartureDate.getYear() - 1900, binding.editTextDepartureDate.getMonth(), binding.editTextDepartureDate.getDayOfMonth());
+            Date returnDate = new Date(binding.editTextReturnDate.getYear() - 1900, binding.editTextReturnDate.getMonth(), binding.editTextReturnDate.getDayOfMonth());
+
+            // set the departure and return dates to the price object
+            price.setDepartureDate(departureDate);
+            price.setReturnDate(returnDate);
+
+            Price.nextId++;
+            recordedPrices = Helper.loadRecordedPrices(sharedPreferences);
+            // Check if recordedSessions is null, initialize with an empty ArrayList if so
+            if (recordedPrices == null) {
+                recordedPrices = new ArrayList<>();
+            }
+            // Add the new task to the list of recorded sessions
+            recordedPrices.add(price);
+            // Save the recorded sessions to SharedPreferences
+            Helper.saveRecordedPrices(sharedPreferences, recordedPrices);
+            // Navigate to main activity
+            Intent intent = new Intent(TravelDateActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
     }
 
-    @Override
-    public void onClick(View view) {
-        if(binding.btnSubmit.getText()!="RESET") {
-            binding.priceView.setVisibility(View.VISIBLE);
-            binding.btnSubmit.setText("RESET");
-        } else {
-            Intent intent = new Intent(TravelDateActivity.this, OriginActivity.class);
-            startActivity(intent);
-        }
-    }
 }
