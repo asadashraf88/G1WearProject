@@ -27,7 +27,6 @@ public class OriginActivity extends AppCompatActivity {
     private ActivityOriginBinding binding;
     private AirportAdapter adapter;
     private List<Airport> airportList;
-
     private LinearLayoutManager layoutManager;
 
     @Override
@@ -62,6 +61,7 @@ public class OriginActivity extends AppCompatActivity {
         }
 
         adapter = new AirportAdapter(airportList, getApplicationContext());
+        adapter.setIsOriginAdapter(true);
         binding.originRecyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
