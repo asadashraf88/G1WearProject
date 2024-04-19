@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         binding.pricesRecyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
-        binding.buttonNewSeach.setOnClickListener(v -> {
+        binding.buttonNewSearch.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, OriginActivity.class);
             startActivity(intent);
         });

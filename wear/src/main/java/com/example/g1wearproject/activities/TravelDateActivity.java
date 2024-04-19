@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.g1wearproject.databinding.ActivityTravelDateBinding;
 import com.example.g1wearproject.models.Airport;
+import com.example.g1wearproject.models.Fare;
 import com.example.g1wearproject.models.Price;
 import com.example.g1wearproject.utils.Helper;
 
@@ -69,6 +70,13 @@ public class TravelDateActivity extends AppCompatActivity  {
             // set the departure and return dates to the price object
             price.setDepartureDate(departureDate);
             price.setReturnDate(returnDate);
+
+            Fare fare = Helper.getFareByOriginAndDestination(this, price.getOrigin(), price.getDestination());
+            if (fare == null) {
+                Toast.makeText(this, "Fare not found", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            price.setPrice(fare.getPrice());
 
             Price.nextId++;
             recordedPrices = Helper.loadRecordedPrices(sharedPreferences);

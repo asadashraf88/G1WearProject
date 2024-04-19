@@ -11,7 +11,7 @@ public class Price {
     private Date departureDate;
     private Date returnDate;
 
-    private final double price;
+    private double price;
 
     public static int nextId = 1;
 
@@ -58,5 +58,9 @@ public class Price {
 
     public double getPrice() {
         return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
     }
 }

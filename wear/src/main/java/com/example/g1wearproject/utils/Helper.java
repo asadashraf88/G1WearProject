@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.example.g1wearproject.models.Airport;
+import com.example.g1wearproject.models.Fare;
 import com.example.g1wearproject.models.Price;
 
 import java.io.IOException;
@@ -60,40 +61,24 @@ public class Helper {
         return airports;
     }
 
-//    public static List<Airport> loadOriginList() {
-//        // harcode Airport list
-//        List<Airport> airports = new java.util.ArrayList<>();
-//        airports.add(new Airport(1, "LAX", "Los Angeles International Airport"));
-//        airports.add(new Airport(2, "JFK", "John F. Kennedy International Airport"));
-//        airports.add(new Airport(3, "ORD", "O'Hare International Airport"));
-//        airports.add(new Airport(4, "DFW", "Dallas/Fort Worth International Airport"));
-//        airports.add(new Airport(5, "DEN", "Denver International Airport"));
-//        airports.add(new Airport(6, "SFO", "San Francisco International Airport"));
-//        airports.add(new Airport(7, "LAS", "McCarran International Airport"));
-//        airports.add(new Airport(8, "SEA", "Seattle-Tacoma International Airport"));
-//        airports.add(new Airport(9, "ATL", "Hartsfield-Jackson Atlanta International Airport"));
-//        airports.add(new Airport(10, "MIA", "Miami International Airport"));
-//        airports.add(new Airport(11, "MCO", "Orlando International Airport"));
-//        airports.add(new Airport(12, "BOS", "Logan International Airport"));
-//        airports.add(new Airport(13, "PHL", "Philadelphia International Airport"));
-//        airports.add(new Airport(14, "IAD", "Washington Dulles International Airport"));
-//        airports.add(new Airport(15, "DCA", "Ronald Reagan Washington National Airport"));
-//        airports.add(new Airport(16, "MDW", "Chicago Midway International Airport"));
-//        airports.add(new Airport(17, "HNL", "Daniel K. Inouye International Airport"));
-//        airports.add(new Airport(18, "SAN", "San Diego International Airport"));
-//        airports.add(new Airport(19, "TPA", "Tampa International Airport"));
-//        airports.add(new Airport(20, "PHX", "Phoenix Sky Harbor International Airport"));
-//        airports.add(new Airport(21, "PDX", "Portland International Airport"));
-//        airports.add(new Airport(22, "MSP", "Minneapolis-Saint Paul International Airport"));
-//        airports.add(new Airport(23, "DTW", "Detroit Metropolitan Wayne County Airport"));
-//        airports.add(new Airport(24, "SLC", "Salt Lake City International Airport"));
-//        airports.add(new Airport(25, "FLL", "Fort Lauderdale-Hollywood International Airport"));
-//        airports.add(new Airport(26, "BWI", "Baltimore/Washington International Thurgood Marshall Airport"));
-//        airports.add(new Airport(27, "IAH", "George Bush Intercontinental Airport"));
-//        airports.add(new Airport(28, "EWR", "Newark Liberty International Airport"));
-//        airports.add(new Airport(29, "LGA", "LaGuardia Airport"));
-//        return airports;
-//    }
+    public static List<Fare> loadFareList(Context context) {
+        String json = null;
+        try {
+            InputStream is = context.getAssets().open("fares.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, StandardCharsets.UTF_8);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+
+        Type type = new TypeToken<List<Fare>>() {}.getType();
+        List<Fare> fares = new Gson().fromJson(json, type);
+        return fares;
+    }
 
     public static Airport getAirportById(Context context, int airportId) {
         List<Airport> airports = loadOriginList(context);
@@ -101,6 +86,14 @@ public class Helper {
             return null;
         }
         return airports.stream().filter(airport -> airport.getId() == airportId).findFirst().orElse(null);
+    }
+
+    public static Fare getFareByOriginAndDestination(Context context, int originId, int destinationId) {
+        List<Fare> fares = loadFareList(context);
+        if (fares == null) {
+            return null;
+        }
+        return fares.stream().filter(fare -> fare.getOrigin() == originId && fare.getDestination() == destinationId).findFirst().orElse(null);
     }
 
 
