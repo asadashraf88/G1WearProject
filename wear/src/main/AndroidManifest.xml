@@ -13,7 +13,7 @@
             android:name=".TravelDateActivity"
             android:exported="false" />
         <activity
-            android:name=".DestinationActivity"
+            android:name=".activities.DestinationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.OriginActivity"

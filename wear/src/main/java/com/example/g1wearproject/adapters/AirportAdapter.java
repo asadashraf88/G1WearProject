@@ -2,25 +2,31 @@ package com.example.g1wearproject.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.g1wearproject.databinding.AirportItemBinding;
-import com.example.g1wearproject.databinding.PriceItemBinding;
 import com.example.g1wearproject.models.Airport;
-import com.example.g1wearproject.models.Price;
 
 import java.util.List;
 
 public class AirportAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private final List<Airport> airportList;
+    private final OnAirportClickListener clickListener;
     AirportItemBinding binding;
 
-    public AirportAdapter(List<Airport> airportList, Context applicationContext) {
+    public interface OnAirportClickListener {
+        void onAirportClick(Airport airport);
+    }
+
+    public AirportAdapter(List<Airport> airportList, Context applicationContext, OnAirportClickListener clickListener) {
         super();
         this.airportList = airportList;
+        this.clickListener = clickListener;
     }
     @NonNull
     @Override
@@ -45,16 +51,32 @@ public class AirportAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return airportList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        AirportItemBinding rowBinding;
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private final AirportItemBinding binding;
+
+
         public ViewHolder(AirportItemBinding binding) {
             super(binding.getRoot());
-            this.rowBinding = binding;
+            this.binding = binding;
+            binding.getRoot().setOnClickListener(this);
         }
 
         public void bindView(Airport airport) {
-            rowBinding.textAirportName.setText(airport.getName());
-            rowBinding.textAirportIataCode.setText(airport.getIataCode());
+            binding.textAirportName.setText(airport.getName());
+            binding.textAirportIataCode.setText(airport.getIataCode());
         }
+
+        @Override
+        public void onClick(View v) {
+            // Retrieve the position of the clicked item
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                // Get the clicked airport
+                Airport clickedAirport = airportList.get(position);
+                // Call the onAirportClick method of the clickListener interface
+                clickListener.onAirportClick(clickedAirport);
+            }
+        }
+
     }
 }
