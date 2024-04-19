@@ -36,6 +36,7 @@ public class TravelDateActivity extends AppCompatActivity  {
         // Instantiating View using View Binding
         binding = ActivityTravelDateBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        binding.buttonSubmit.setText("SUBMIT");
 
         sharedPreferences = getSharedPreferences(Helper.PRICES_DB, MODE_PRIVATE);
 
@@ -49,50 +50,77 @@ public class TravelDateActivity extends AppCompatActivity  {
     private void retrieveOriginAndDestination() {
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("origin_id") && intent.hasExtra("destination_id")) {
-            int originId = intent.getIntExtra("origin_id", -1);
-            int destinationId = intent.getIntExtra("destination_id", -1);
-            price = new Price(Price.nextId, originId, destinationId);
+            String originId = intent.getStringExtra("origin_id");
+            String destinationId = intent.getStringExtra("destination_id");
+
+            Toast.makeText(this, originId + " " + destinationId, Toast.LENGTH_SHORT).show();
+
+            int originIdInt = Helper.loadOriginList(this).stream()
+                    .filter(airport -> airport.getIataCode().equals(originId))
+                    .findFirst()
+                    .map(Airport::getId)
+                    .orElse(-1);
+
+            int destinationIdInt = Helper.loadOriginList(this).stream()
+                    .filter(airport -> airport.getIataCode().equals(destinationId))
+                    .findFirst()
+                    .map(Airport::getId)
+                    .orElse(-1);
+
+            Toast.makeText(this, String.valueOf(originIdInt), Toast.LENGTH_SHORT).show();
+
+            price = new Price(Price.nextId, originIdInt, destinationIdInt);
         } else {
             Toast.makeText(this, "Origin and Destination not found", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void init(){
-        // Hiding Price View
         binding.priceView.setVisibility(View.GONE);
         // Attaching On Click Listener to Submit Button
         binding.buttonSubmit.setOnClickListener(v -> {
 
-            // get departure and return dates from the date picker
-            Date departureDate = new Date(binding.editTextDepartureDate.getYear() - 1900, binding.editTextDepartureDate.getMonth(), binding.editTextDepartureDate.getDayOfMonth());
-            Date returnDate = new Date(binding.editTextReturnDate.getYear() - 1900, binding.editTextReturnDate.getMonth(), binding.editTextReturnDate.getDayOfMonth());
+            if(binding.buttonSubmit.getText()!="RESET") {
+                binding.priceView.setVisibility(View.VISIBLE);
 
-            // set the departure and return dates to the price object
-            price.setDepartureDate(departureDate);
-            price.setReturnDate(returnDate);
+                // get departure and return dates from the date picker
+                Date departureDate = new Date(binding.editTextDepartureDate.getYear() - 1900, binding.editTextDepartureDate.getMonth(), binding.editTextDepartureDate.getDayOfMonth());
+                Date returnDate = new Date(binding.editTextReturnDate.getYear() - 1900, binding.editTextReturnDate.getMonth(), binding.editTextReturnDate.getDayOfMonth());
 
-            Fare fare = Helper.getFareByOriginAndDestination(this, price.getOrigin(), price.getDestination());
-            if (fare == null) {
-                Toast.makeText(this, "Fare not found", Toast.LENGTH_SHORT).show();
-                return;
+                // set the departure and return dates to the price object
+                price.setDepartureDate(departureDate);
+                price.setReturnDate(returnDate);
+
+                Fare fare = Helper.getFareByOriginAndDestination(this, price.getOrigin(), price.getDestination());
+                if (fare == null) {
+                    Toast.makeText(this, "Fare not found", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                float corePrice = fare.getPrice();
+
+                float calcPrice = corePrice + (float) (Math.random() * 100)-50;
+                calcPrice = Math.round(calcPrice * 100.0f) / 100.0f;
+                // simulate a random variation in the price
+                price.setPrice(calcPrice);
+
+                Price.nextId++;
+                recordedPrices = Helper.loadRecordedPrices(sharedPreferences);
+                // Check if recordedSessions is null, initialize with an empty ArrayList if so
+                if (recordedPrices == null) {
+                    recordedPrices = new ArrayList<>();
+                }
+                // Add the new task to the list of recorded sessions
+                recordedPrices.add(price);
+                // Save the recorded sessions to SharedPreferences
+                Helper.saveRecordedPrices(sharedPreferences, recordedPrices);
+
+                binding.priceView.setText(String.valueOf(calcPrice));
+                binding.buttonSubmit.setText("RESET");
+            } else {
+                // Navigate to main activity
+                Intent intent = new Intent(TravelDateActivity.this, MainActivity.class);
+                startActivity(intent);
             }
-            float corePrice = fare.getPrice();
-            // simulate a random variation in the price
-            price.setPrice(corePrice + (float) (Math.random() * 100)-50);
-
-            Price.nextId++;
-            recordedPrices = Helper.loadRecordedPrices(sharedPreferences);
-            // Check if recordedSessions is null, initialize with an empty ArrayList if so
-            if (recordedPrices == null) {
-                recordedPrices = new ArrayList<>();
-            }
-            // Add the new task to the list of recorded sessions
-            recordedPrices.add(price);
-            // Save the recorded sessions to SharedPreferences
-            Helper.saveRecordedPrices(sharedPreferences, recordedPrices);
-            // Navigate to main activity
-            Intent intent = new Intent(TravelDateActivity.this, MainActivity.class);
-            startActivity(intent);
         });
     }
 
