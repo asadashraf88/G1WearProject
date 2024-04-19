@@ -13,6 +13,7 @@ import com.example.g1wearproject.models.Price;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -97,5 +98,8 @@ public class Helper {
     }
 
 
-
+    public static String getFormattedDate(Date departureDate) {
+        // return month and day
+        return departureDate.getMonth() + "/" + departureDate.getDate();
+    }
 }

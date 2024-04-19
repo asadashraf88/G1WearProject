@@ -76,7 +76,9 @@ public class TravelDateActivity extends AppCompatActivity  {
                 Toast.makeText(this, "Fare not found", Toast.LENGTH_SHORT).show();
                 return;
             }
-            price.setPrice(fare.getPrice());
+            float corePrice = fare.getPrice();
+            // simulate a random variation in the price
+            price.setPrice(corePrice + (float) (Math.random() * 100)-50);
 
             Price.nextId++;
             recordedPrices = Helper.loadRecordedPrices(sharedPreferences);

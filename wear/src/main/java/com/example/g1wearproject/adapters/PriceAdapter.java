@@ -67,8 +67,9 @@ public class PriceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             rowBinding.textOrigin.setText(orginAirport.getIataCode() + "");
             rowBinding.textDestination.setText(destinationAirport.getIataCode() + "");
             rowBinding.textPrice.setText(price.getPrice() + "");
-            rowBinding.textDepartureDate.setText(price.getDepartureDate().toString());
-            rowBinding.textReturnDate.setText(price.getReturnDate().toString());
+            // get just day and month from the date
+            rowBinding.textDepartureDate.setText(Helper.getFormattedDate(price.getDepartureDate()));
+            rowBinding.textReturnDate.setText(Helper.getFormattedDate(price.getReturnDate()));
         }
     }
 }
