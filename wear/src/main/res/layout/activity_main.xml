@@ -3,29 +3,38 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@drawable/paulbg">
-
+    android:layout_width="match_parent"
+    android:layout_marginBottom="8dp"
+    tools:context=".activities.MainActivity"
+    app:layout_boxedEdges="all"
+    android:layout_gravity="center"
+    android:padding="4dp"
+    android:gravity="center"
+    app:flow_horizontalAlign="center"
+    tools:ignore="MissingClass">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="2dp">
-        <Button
-            android:id="@+id/btn_Login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_login"
-            android:textSize="16sp"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/btn_bg"
-            android:padding="12dp"
-            android:layout_margin="8dp"
-            android:elevation="4dp"
-            android:stateListAnimator="@animator/btn_animator"
-            android:layout_gravity="center">
-        </Button>
+
+        <androidx.wear.widget.WearableRecyclerView
+            android:id="@+id/tasksRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <ImageButton
+            android:id="@+id/buttonNewSeach"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="end|top"
+            android:src="@drawable/paulbg"
+            android:background="@android:color/transparent"
+            android:padding="16dp"
+            android:contentDescription="@null"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:scaleType="fitXY"/>
+
     </FrameLayout>
 </androidx.wear.widget.BoxInsetLayout>
-

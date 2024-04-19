@@ -5,4 +5,8 @@
     <color name="appContrast">#FD7B5E</color>
     <color name="appPrimaryVariant">#03C4E2</color>
     <color name="appShadow">#33000000</color>
+    <color name="black">#FF000000</color>
+    <color name="dark_grey">#5A5A5A</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="blue">#0A5AAC</color>
 </resources>
