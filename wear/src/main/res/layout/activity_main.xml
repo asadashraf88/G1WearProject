@@ -16,25 +16,28 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="2dp">
+        android:padding="2dp"
+        android:background="@drawable/paulbg">
 
         <androidx.wear.widget.WearableRecyclerView
             android:id="@+id/tasksRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-        <ImageButton
+        <Button
             android:id="@+id/buttonNewSeach"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="end|top"
-            android:src="@drawable/paulbg"
-            android:background="@android:color/transparent"
-            android:padding="16dp"
-            android:contentDescription="@null"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="1dp"
-            android:scaleType="fitXY"/>
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="@string/btn_newSearch"
+            android:textSize="12sp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/btn_bg"
+            android:padding="1dp"
+            android:layout_margin="8dp"
+            android:elevation="4dp"
+            android:stateListAnimator="@animator/btn_animator"
+            android:layout_gravity="center|bottom">
+        </Button>
 
     </FrameLayout>
 </androidx.wear.widget.BoxInsetLayout>

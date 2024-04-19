@@ -10,7 +10,9 @@
     >
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/tappableView"
+        android:clickable="true">
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">

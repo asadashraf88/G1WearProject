@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.g1wearproject.activities.OriginActivity;
@@ -44,23 +47,29 @@ public class TravelDateActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void init(){
-
         // Hiding Price View
         binding.priceView.setVisibility(View.GONE);
 
         // Attaching On Click Listener to Submit Button
         binding.btnSubmit.setOnClickListener(this);
-        
     }
 
     @Override
     public void onClick(View view) {
-        if(binding.btnSubmit.getText()!="RESET") {
-            binding.priceView.setVisibility(View.VISIBLE);
-            binding.btnSubmit.setText("RESET");
+
+        if(view instanceof Button){
+            if(binding.btnSubmit.getText()!="RESET") {
+                binding.priceView.setVisibility(View.VISIBLE);
+                binding.btnSubmit.setText("RESET");
+            } else {
+                Intent intent = new Intent(TravelDateActivity.this, OriginActivity.class);
+                startActivity(intent);
+            }
         } else {
-            Intent intent = new Intent(TravelDateActivity.this, OriginActivity.class);
-            startActivity(intent);
+            if(binding.btnSubmit.getText()=="RESET") {
+                binding.priceView.setVisibility(View.GONE);
+                binding.btnSubmit.setText("SUBMIT");
+            }
         }
     }
 }
