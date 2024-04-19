@@ -1,21 +1,30 @@
-package com.example.g1wearproject;
+package com.example.g1wearproject.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.g1wearproject.activities.OriginActivity;
 import com.example.g1wearproject.databinding.ActivityTravelDateBinding;
+import com.example.g1wearproject.models.Airport;
+import com.example.g1wearproject.models.Price;
+import com.example.g1wearproject.utils.Helper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TravelDateActivity extends AppCompatActivity implements View.OnClickListener {
 
     private @NonNull ActivityTravelDateBinding binding;
-    String Origin;
-    String Destination;
+
+    private Price price;
+
+    private List<Price> recordedPrices;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +35,8 @@ public class TravelDateActivity extends AppCompatActivity implements View.OnClic
         binding = ActivityTravelDateBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        sharedPreferences = getSharedPreferences(Helper.PRICES_DB, MODE_PRIVATE);
+
         // Retrieving Selected Origin
         retrieveOriginAndDestination();
 
@@ -35,9 +46,24 @@ public class TravelDateActivity extends AppCompatActivity implements View.OnClic
 
     private void retrieveOriginAndDestination() {
         Intent intent = getIntent();
-        if (intent != null && intent.hasExtra("originCode") && intent.hasExtra("destinationCode")) {
-            Origin = intent.getStringExtra("originCode");
-            Destination = intent.getStringExtra("destinationCode");
+        if (intent != null && intent.hasExtra("origin_id") && intent.hasExtra("destination_id")) {
+            int originId = intent.getIntExtra("origin_id", -1);
+            int destinationId = intent.getIntExtra("destination_id", -1);
+            price = new Price(Price.nextId, originId, destinationId);
+            Price.nextId++;
+
+            recordedPrices = Helper.loadRecordedPrices(sharedPreferences);
+            // Check if recordedSessions is null, initialize with an empty ArrayList if so
+            if (recordedPrices == null) {
+                recordedPrices = new ArrayList<>();
+            }
+
+            // Add the new task to the list of recorded sessions
+            recordedPrices.add(price);
+            // Save the recorded sessions to SharedPreferences
+            Helper.saveRecordedPrices(sharedPreferences, recordedPrices);
+
+
         } else {
             Toast.makeText(this, "Origin and Destination not found", Toast.LENGTH_SHORT).show();
         }

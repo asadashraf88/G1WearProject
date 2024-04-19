@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class Price {
     private final int id;
-    private final String origin;
-    private final String destination;
+    private final int origin;
+    private final int destination;
 
 
     private final Date departureDate;
@@ -15,7 +15,7 @@ public class Price {
 
     public static int nextId = 1;
 
-    public Price(int id, String origin, String destination, Date departureDate, Date returnDate, double price) {
+    public Price(int id, int origin, int destination, Date departureDate, Date returnDate, double price) {
         this.id = id;
         this.origin = origin;
         this.destination = destination;
@@ -24,15 +24,19 @@ public class Price {
         this.price = price;
     }
 
+    public Price(int nextId, int originId, int destinationId) {
+        this(nextId, originId, destinationId, new Date(), new Date(), 0.0);
+    }
+
     public int getId() {
         return id;
     }
 
-    public String getOrigin() {
+    public int getOrigin() {
         return origin;
     }
 
-    public String getDestination() {
+    public int getDestination() {
         return destination;
     }
 

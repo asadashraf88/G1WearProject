@@ -5,6 +5,7 @@ import androidx.wear.widget.WearableLinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.g1wearproject.adapters.PriceAdapter;
 import com.example.g1wearproject.databinding.ActivityMainBinding;
@@ -23,8 +24,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
-
         // Instantiating View using View Binding
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -32,18 +31,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
-        binding.tasksRecyclerView.setHasFixedSize(true);
-        binding.tasksRecyclerView.setEdgeItemsCenteringEnabled(true);
-        binding.tasksRecyclerView.setLayoutManager(new WearableLinearLayoutManager(this));
+        binding.pricesRecyclerView.setHasFixedSize(true);
+        binding.pricesRecyclerView.setEdgeItemsCenteringEnabled(true);
+        binding.pricesRecyclerView.setLayoutManager(new WearableLinearLayoutManager(this));
 
         // Initialize workout tasks list (load from SharedPreferences)
 
         priceList = Helper.loadRecordedPrices(getSharedPreferences(Helper.PRICES_DB, MODE_PRIVATE));
 
+        Log.i("PriceAdapter", "init: " + priceList.size());
         // If the list is null or empty, create a new list
         if (priceList == null) {
             priceList = new ArrayList<>();
         }
+
 
         if (!priceList.isEmpty()) {
             // get the max id from the list
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         adapter = new PriceAdapter(priceList, getApplicationContext());
-        binding.tasksRecyclerView.setAdapter(adapter);
+        binding.pricesRecyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
         binding.buttonNewSeach.setOnClickListener(v -> {

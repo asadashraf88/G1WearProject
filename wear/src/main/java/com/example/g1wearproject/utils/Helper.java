@@ -25,14 +25,14 @@ public class Helper {
     }
 
     // Method to save recorded workout sessions to SharedPreferences
-    public static void saveRecordedTasks(SharedPreferences sharedPreferences, List<Price> recordedPrices) {
+    public static void saveRecordedPrices(SharedPreferences sharedPreferences, List<Price> recordedPrices) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         String json = new Gson().toJson(recordedPrices);
         editor.putString(PRICES_KEY, json);
         editor.apply();
     }
 
-    public static List<Airport> loadOriginList(SharedPreferences sharedPreferences) {
+    public static List<Airport> loadOriginList() {
         // harcode Airport list
         List<Airport> airports = new java.util.ArrayList<>();
         airports.add(new Airport(1, "LAX", "Los Angeles International Airport"));
@@ -66,5 +66,9 @@ public class Helper {
         airports.add(new Airport(29, "LGA", "LaGuardia Airport"));
         return airports;
 
+    }
+
+    public static Airport getAirportById(int airportId) {
+        return loadOriginList().stream().filter(airport -> airport.getId() == airportId).findFirst().orElse(null);
     }
 }

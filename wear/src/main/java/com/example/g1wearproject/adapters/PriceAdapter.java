@@ -1,6 +1,7 @@
 package com.example.g1wearproject.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -51,12 +52,12 @@ public class PriceAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         }
 
         public void bindView(Price price) {
-            rowBinding.textOrigin.setText(price.getOrigin());
-            rowBinding.textDestination.setText(price.getDestination());
+            Log.i("PriceAdapter", "bindView: " + price.getId());
+            rowBinding.textOrigin.setText(price.getOrigin() + "");
+            rowBinding.textDestination.setText(price.getDestination() + "");
             rowBinding.textDepartureDate.setText(price.getDepartureDate().toString());
             rowBinding.textReturnDate.setText(price.getReturnDate().toString());
-            rowBinding.textPrice.setText(String.valueOf(price.getPrice()));
-
+            rowBinding.textPrice.setText(price.getPrice() + "");
         }
     }
 }

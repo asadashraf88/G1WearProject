@@ -7,10 +7,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.wear.widget.WearableLinearLayoutManager;
 
-import com.example.g1wearproject.TravelDateActivity;
 import com.example.g1wearproject.adapters.AirportAdapter;
 import com.example.g1wearproject.databinding.ActivityDestinationBinding;
-import com.example.g1wearproject.databinding.ActivityOriginBinding;
 import com.example.g1wearproject.models.Airport;
 import com.example.g1wearproject.models.Price;
 import com.example.g1wearproject.utils.Helper;
@@ -68,7 +66,7 @@ public class DestinationActivity extends AppCompatActivity {
 
         // Initialize workout tasks list (load from SharedPreferences)
 
-        airportList = Helper.loadOriginList(getSharedPreferences(Helper.PRICES_DB, MODE_PRIVATE));
+        airportList = Helper.loadOriginList();
 
         // If the list is null or empty, create a new list
         if (airportList == null) {

@@ -57,7 +57,7 @@ public class OriginActivity extends AppCompatActivity {
 
         // Initialize workout tasks list (load from SharedPreferences)
 
-        airportList = Helper.loadOriginList(getSharedPreferences(Helper.PRICES_DB, MODE_PRIVATE));
+        airportList = Helper.loadOriginList();
 
         // If the list is null or empty, create a new list
         if (airportList == null) {
