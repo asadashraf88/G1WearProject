@@ -18,20 +18,13 @@ import java.util.List;
 
 public class AirportAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private final List<Airport> airportList;
-    //private final OnAirportClickListener clickListener;
     ItemAirportBinding binding;
     private int selectedItem = RecyclerView.NO_POSITION;
     private boolean isOriginAdapter;
 
-    /*
-    public interface OnAirportClickListener {
-        void onAirportClick(Airport airport);
-    } */
-
     public AirportAdapter(List<Airport> airportList, Context applicationContext) {
         super();
         this.airportList = airportList;
-        //this.clickListener = clickListener;
     }
     @NonNull
     @Override
@@ -107,34 +100,4 @@ public class AirportAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    /*
-
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    private final AirportItemBinding binding;
-
-
-        public ViewHolder(AirportItemBinding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
-            binding.getRoot().setOnClickListener(this);
-        }
-
-        public void bindView(Airport airport) {
-            binding.textAirportName.setText(airport.getName());
-            binding.textAirportIataCode.setText(airport.getIataCode());
-        }
-
-        @Override
-        public void onClick(View v) {
-            // Retrieve the position of the clicked item
-            int position = getAdapterPosition();
-            if (position != RecyclerView.NO_POSITION) {
-                // Get the clicked airport
-                Airport clickedAirport = airportList.get(position);
-                // Call the onAirportClick method of the clickListener interface
-                clickListener.onAirportClick(clickedAirport);
-            }
-        }
-
-    } */
 }

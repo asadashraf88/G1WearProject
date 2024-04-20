@@ -2,6 +2,7 @@ package com.example.g1wearproject.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.wear.activity.ConfirmationActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -33,6 +34,8 @@ public class TravelDateActivity extends AppCompatActivity  {
     String originId;
     String destinationId;
 
+    Intent confirmIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +47,7 @@ public class TravelDateActivity extends AppCompatActivity  {
         binding.buttonSubmit.setText("SUBMIT");
 
         sharedPreferences = getSharedPreferences(Helper.PRICES_DB, MODE_PRIVATE);
+        confirmIntent = new Intent(TravelDateActivity.this, ConfirmationActivity.class);
 
         // Retrieving Selected Origin
         retrieveOriginAndDestination();
@@ -62,7 +66,10 @@ public class TravelDateActivity extends AppCompatActivity  {
             binding.originTextView.setText(originId + " to " + destinationId);
             binding.destTextView.setText(destinationId + " to " + originId);
 
-            Toast.makeText(this, originId + " " + destinationId, Toast.LENGTH_SHORT).show();
+            String message = "Origin: " + originId + " Destination: " + destinationId;
+            confirmIntent.putExtra(ConfirmationActivity.EXTRA_ANIMATION_TYPE, ConfirmationActivity.SUCCESS_ANIMATION);
+            confirmIntent.putExtra(ConfirmationActivity.EXTRA_MESSAGE, message);
+            startActivity(confirmIntent);
 
             int originIdInt = Helper.loadOriginList(this).stream()
                     .filter(airport -> airport.getIataCode().equals(originId))
@@ -76,7 +83,6 @@ public class TravelDateActivity extends AppCompatActivity  {
                     .map(Airport::getId)
                     .orElse(-1);
 
-            Toast.makeText(this, String.valueOf(originIdInt), Toast.LENGTH_SHORT).show();
 
             price = new Price(Price.nextId, originIdInt, destinationIdInt);
         } else {
@@ -91,12 +97,28 @@ public class TravelDateActivity extends AppCompatActivity  {
         binding.buttonSubmit.setOnClickListener(v -> {
 
             if(binding.buttonSubmit.getText()!="RESET") {
-                binding.priceViewContainer.setVisibility(View.VISIBLE);
-
                 // get departure and return dates from the date picker
                 Date departureDate = new Date(binding.editTextDepartureDate.getYear() - 1900, binding.editTextDepartureDate.getMonth(), binding.editTextDepartureDate.getDayOfMonth());
                 Date returnDate = new Date(binding.editTextReturnDate.getYear() - 1900, binding.editTextReturnDate.getMonth(), binding.editTextReturnDate.getDayOfMonth());
 
+                // check if the return date is before the departure date
+                if (returnDate.before(departureDate)) {
+                    confirmIntent.putExtra(ConfirmationActivity.EXTRA_ANIMATION_TYPE, ConfirmationActivity.FAILURE_ANIMATION);
+                    confirmIntent.putExtra(ConfirmationActivity.EXTRA_MESSAGE, "Return date invalid!");
+                    startActivity(confirmIntent);
+                    return;
+                }
+
+                // check if return date is more than 180 days after departure date
+                long diff = returnDate.getTime() - departureDate.getTime();
+                long diffDays = diff / (24 * 60 * 60 * 1000);
+                if (diffDays > 180) {
+                    confirmIntent.putExtra(ConfirmationActivity.EXTRA_ANIMATION_TYPE, ConfirmationActivity.FAILURE_ANIMATION);
+                    confirmIntent.putExtra(ConfirmationActivity.EXTRA_MESSAGE, "Must return before 180 days");
+                    startActivity(confirmIntent);
+                    return;
+                }
+                binding.priceViewContainer.setVisibility(View.VISIBLE);
                 // set the departure and return dates to the price object
                 price.setDepartureDate(departureDate);
                 price.setReturnDate(returnDate);
@@ -143,7 +165,9 @@ public class TravelDateActivity extends AppCompatActivity  {
             try {
                 startActivity(whatsappIntent);
             } catch (android.content.ActivityNotFoundException ex) {
-                Toast.makeText(this, "WhatsApp is not installed.", Toast.LENGTH_SHORT).show();
+                confirmIntent.putExtra(ConfirmationActivity.EXTRA_ANIMATION_TYPE, ConfirmationActivity.OPEN_ON_PHONE_ANIMATION);
+                confirmIntent.putExtra(ConfirmationActivity.EXTRA_MESSAGE, "WhatsApp is not installed.");
+                startActivity(confirmIntent);
             }
         });
     }

@@ -51,14 +51,12 @@ public class Helper {
             is.close();
             json = new String(buffer, StandardCharsets.UTF_8);
         } catch (IOException ex) {
-            Log.e("loadOriginList", "loadOriginList: " + ex.getMessage());
             ex.printStackTrace();
             return null;
         }
 
         Type type = new TypeToken<List<Airport>>() {}.getType();
         List<Airport> airports = new Gson().fromJson(json, type);
-        Log.d("loadOriginList", "loadOriginList: " + airports.size());
         return airports;
     }
 

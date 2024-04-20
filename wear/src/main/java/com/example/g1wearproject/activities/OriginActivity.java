@@ -11,7 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.g1wearproject.adapters.AirportAdapter;
-import com.example.g1wearproject.adapters.PriceAdapter;
+
 import com.example.g1wearproject.databinding.ActivityOriginBinding;
 import com.example.g1wearproject.models.Airport;
 import com.example.g1wearproject.models.Price;
@@ -19,8 +19,7 @@ import com.example.g1wearproject.utils.Helper;
 
 import java.util.ArrayList;
 import java.util.List;
-// import toast
-import android.widget.Toast;
+
 public class OriginActivity extends AppCompatActivity {
 
     // Declaring variables and objects
@@ -44,20 +43,6 @@ public class OriginActivity extends AppCompatActivity {
         init();
     }
 
-    /*
-
-    private void startDestinationActivity() {
-        if (temporaryOriginId != -1) { // Check if origin ID is valid
-            Intent intent = new Intent(this, DestinationActivity.class);
-            // Pass the origin ID to DestinationActivity
-            intent.putExtra("origin_id", temporaryOriginId);
-            startActivity(intent);
-        } else {
-            // Handle the case where origin ID is not selected
-            Toast.makeText(this, "Please select an origin airport first", Toast.LENGTH_SHORT).show();
-        }
-    } */
-
     private void init() {
         binding.originRecyclerView.setHasFixedSize(true);
         binding.originRecyclerView.setEdgeItemsCenteringEnabled(true);
@@ -79,22 +64,9 @@ public class OriginActivity extends AppCompatActivity {
 
         adapter = new AirportAdapter(airportList, this);
 
-        /*
-
-        adapter = new AirportAdapter(airportList, getApplicationContext(), airport -> {
-            // Store the ID of the clicked origin airport temporarily
-            temporaryOriginId = airport.getId();
-
-            Toast.makeText(this, "Selected origin airport: " + airport.getName(), Toast.LENGTH_SHORT).show();
-            startDestinationActivity();
-            // Proceed to the destination selection process...
-        }); */
-
         adapter.setIsOriginAdapter(true);
         binding.originRecyclerView.setAdapter(adapter);
-        //adapter.notifyDataSetChanged();
 
-        // RecyclerView Setup
         recyclerViewSetup();
 
     }
@@ -152,7 +124,6 @@ public class OriginActivity extends AppCompatActivity {
                 if (adapter.isSelected(position)) {
                     Airport airport = airportList.get(position);
                     Intent intent = new Intent(OriginActivity.this, DestinationActivity.class);
-                    //intent.putExtra("selectedIataCode", airport.getIataCode());
                     intent.putExtra("origin_id", airport.getIataCode());
                     startActivity(intent);
                 }

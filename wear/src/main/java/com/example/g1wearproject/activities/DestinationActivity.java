@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.wear.activity.ConfirmationActivity;
 import androidx.wear.widget.WearableLinearLayoutManager;
 
 import com.example.g1wearproject.adapters.AirportAdapter;
@@ -30,8 +31,6 @@ public class DestinationActivity extends AppCompatActivity {
 
     private LinearLayoutManager layoutManager;
 
-    //private int temporaryOriginId = -1; // Initialize with an invalid ID
-
     String temporaryOriginId;
     private int temporaryDestinationId = -1; // Initialize with an invalid ID
 
@@ -47,36 +46,18 @@ public class DestinationActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null && extras.containsKey("origin_id")) {
             temporaryOriginId = extras.getString("origin_id");
-            Toast.makeText(this, temporaryOriginId, Toast.LENGTH_SHORT).show();
         } else {
             // Handle the case where origin ID is not passed
             Toast.makeText(this, "Origin ID not found", Toast.LENGTH_SHORT).show();
-            // You may want to finish the activity or handle this case appropriately
         }
         // Initializing View
         init();
     }
 
-    /*
-
-    private void startDateActivity() {
-        if (temporaryOriginId != -1) { // Check if origin ID is valid
-            Intent intent = new Intent(this, TravelDateActivity.class);
-            // Pass the origin ID to DestinationActivity
-            intent.putExtra("origin_id", temporaryOriginId);
-            intent.putExtra("destination_id", temporaryDestinationId);
-            startActivity(intent);
-        } else {
-            // Handle the case where origin ID is not selected
-            Toast.makeText(this, "Please select an origin airport first", Toast.LENGTH_SHORT).show();
-        }
-    } */
     private void init() {
         binding.destinationRecyclerView.setHasFixedSize(true);
         binding.destinationRecyclerView.setEdgeItemsCenteringEnabled(true);
         binding.destinationRecyclerView.setLayoutManager(new WearableLinearLayoutManager(this));
-
-        // airportList = Helper.loadOriginList(this);
 
         // Preparing array to Initialize RecyclerView (filtering out origin)
         airportList = Helper.loadOriginList(this).stream()
@@ -96,19 +77,6 @@ public class DestinationActivity extends AppCompatActivity {
         adapter = new AirportAdapter(airportList, this);
         adapter.setIsOriginAdapter(false);
 
-        /*
-
-        adapter = new AirportAdapter(airportList, getApplicationContext(), airport -> {
-            // if destination equals origin
-            if (airport.getId() == temporaryOriginId) {
-                Toast.makeText(this, "Destination airport cannot be the same as origin airport", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            // Store the ID of the clicked origin airport temporarily
-            temporaryDestinationId = airport.getId();
-            startDateActivity();
-            // Proceed to the destination selection process...
-        }); */
         binding.destinationRecyclerView.setAdapter(adapter);
 
         recyclerViewSetup();
